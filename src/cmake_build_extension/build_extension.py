@@ -58,10 +58,6 @@ class BuildExtension(build_ext):
         if shutil.which("cmake") is None:
             raise RuntimeError("Required command 'cmake' not found")
 
-        # Check that Ninja is installed
-        if shutil.which("ninja") is None:
-            raise RuntimeError("Required command 'ninja' not found")
-
         for ext in cmake_extensions:
             self.build_extension(ext)
 
@@ -101,7 +97,6 @@ class BuildExtension(build_ext):
 
         # CMake configure arguments
         configure_args = [
-            "-GNinja",
             f"-DCMAKE_BUILD_TYPE={ext.cmake_build_type}",
             f"-DCMAKE_INSTALL_PREFIX:PATH={cmake_install_prefix}",
         ]
